@@ -1,0 +1,39 @@
+.plans {
+    padding: 5.6vh;
+    
+    h2 {
+        text-align: center;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-around; // comando para redistribuir as margens de uma forma padrão 
+        margin-top: 50px;
+
+        &__item {
+            text-align: center;
+            padding: 60px 44px 44px;
+            max-width: 380px;
+            width: 100%;
+
+            &:nth-child(2) { // comando para selecionar um elemento do html dentro css
+                background-image: url(../images/fundo_combo_plus.png);
+                background-repeat: no-repeat; // a imagem estava repetindo para cobrir toda o elemento, por isso foi adicionado essa linha
+                background-size: contain; // escala a imagem e respeita a proporção dela    
+            }
+
+            img {
+                height: 83px;
+            }
+
+            strong {
+                display: block;
+                margin-top: 24px;
+            }
+        }
+    }
+
+    p {
+        text-align: center;
+    }
+}
