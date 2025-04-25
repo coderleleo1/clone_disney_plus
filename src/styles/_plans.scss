@@ -10,6 +10,10 @@
         justify-content: space-around; // comando para redistribuir as margens de uma forma padrão 
         margin-top: 50px;
 
+        @media (max-width: 768px) {
+            display: block;
+        }
+
         &__item {
             text-align: center;
             padding: 60px 44px 44px;
@@ -28,6 +32,10 @@
 
             strong {
                 display: block;
+                margin-top: 24px;
+            }
+
+            .button {
                 margin-top: 24px;
             }
         }

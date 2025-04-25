@@ -3,6 +3,10 @@
 @use 'hero';
 @use 'shows';   
 @use 'plans';
+@use 'available-devices';
+@use 'faq';
+@use 'footer';
+@use 'header';
 
 @font-face { // comando para importar uma fonte personalizada
     font-family: Avenir;
@@ -24,21 +28,33 @@
     color: variaveis.$corTextoPrincipal;
 }
 
-@mixin title($fontSize: 28px) {
+@mixin title($fontSize: 40px) {
     @include text($fontSize);
     color: variaveis.$corTextoSecundario;
 }
 
 .text--big { 
     @include text(18px);
+
+    @media (max-width: 768px) {
+        @include text(15px);
+    }
 }
 
 .text {
     @include text();
+
+    @media (max-width: 768px) {
+        @include text(14px);
+    }
 }
 
 .text--small {
     @include text(12px);
+
+    @media (max-width: 768px) {
+        @include text(11px);
+    }
 }
 
 .link-text {
@@ -49,29 +65,126 @@
 
 .title--big {
     @include title(44px);
+
+    @media (max-width: 768px) {
+        @include title(26px);
+    }
 }
 
 .title {
     @include title();
+
+    @media (max-width: 768px) {
+        @include title(24px);
+    }
 }
 
 .title--small {
-    @include title(28px)
+    @include title(28px);
+
+    @media (max-width: 768px) {
+        @include title(22px);
+    }
+}
+
+.text--subItem {
+    list-style: disc;
+
+    li {
+        padding-top: 20px;
+        margin-left: 20px;
+    }
 }
 
 .button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 60px;
     font-size: 18px;
     color: variaveis.$corTextoSecundario;
-    background-color: #6421ff;
+    background-color: variaveis.$corDeFundoBotaoPrimario;
     text-transform: uppercase;
-    border: none;
+    border: 1px solid variaveis.$corDeFundoBotaoPrimario;
     border-radius: 4px;
-    margin-top: 2vh;
-    margin-bottom: 8px;
+    text-decoration: none;
+    padding: 8px 14px;
     cursor: pointer;
+    letter-spacing: 1px;
+
+    &:hover {
+        background-color: lighten(variaveis.$corDeFundoBotaoPrimario, 3%);
+    }
+    
+
+    &--secundary {
+        background-color: variaveis.$corDeFundoBotaoSencudario;
+        border-color: variaveis.$corDeFundoBotaoSencudario;
+
+        &:hover {
+            background-color: lighten(variaveis.$corDeFundoBotaoSencudario, 3%); // função para clarear a cor selecionada 
+        }
+    }
+
+    &--dark {
+        background-color: variaveis.$corDeFundoBotaoDark;
+        border-color: variaveis.$corTextoSecundario;
+
+        &:hover {
+            background-color: variaveis.$corTextoSecundario;
+            color: variaveis.$corDeFundo
+        }
+    }
+}
+
+.image-text-section {
+    padding: 5.6vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center; // centraliza horizontalmente
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+
+    img {
+        max-width: 100%; // a imagem não respeitou o tamanho da coluna do display grid, foi necessário adicionar o comando para ela ocupar 100% do tamanho da coluna
+    }
+
+    &__text-conteiner {
+        padding: 0 2vw;
+
+        h2 {
+            margin-bottom: 24px;
+        }
+    }
+
+    &--image-full-width {
+        display: block;
+        position: relative;
+
+        img {
+            width: 100%;
+        }
+
+        &__text-conteiner {
+            position: absolute; // utilizado para posicionar o elemento em qualquer ponto dentro da div dele
+            top: 0; // inicia a posição logo após o padding top da section
+            left: 50%; // alinha o elemento para a esquerda do container
+            height: 100%; // para ocupar 100% da altura do container
+            display: flex; // para alinhar os elementos na vertical
+            flex-direction: column; // muda a direção do display flex para uma coluna (o padrão é por linha (row), deixando os elmentos um ao lado do outro)
+            justify-content: center; // alinha os elementos na vertical
+            width: calc(50% - 5.6vw); // o texto estava diferente do original, para ocorrer a quebra foi utilizado uma função de calculo de 50% - o padding do lado direito de 5.6vw
+
+            @media (max-width: 768px) {
+                position: relative;
+                left: 0;
+                width: 100%;
+            }
+        }
+    }
 }
 
 // Estilização da página
@@ -80,6 +193,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Avenir, sans-serif;
+    list-style: none;
 }
 
 body {

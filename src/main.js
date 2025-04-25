@@ -1,7 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('[data-tab-button]'); // serve para selecionar os botões com data-tab-button dentro do HTML, caso eu quisesse algo em especifico teria que colocar um = ex: =em_breve
-    
+    const questions = document.querySelectorAll('[data-faq-question]');
 
+    const heroSection = document.querySelector('.hero'); 
+    const alturaHero = heroSection.clientHeight; // comando para saber a altura que um elemento HTML possui dentro da página
+
+    window.addEventListener('scroll', function () { 
+        const posicaoAtual = window.scrollY // comando para calcular a rolagem do scroll verticalmente 
+
+        if (posicaoAtual < alturaHero) { // a lógica é ocultar os elementos enquanto a posição atual do mouse for menor que o valor da altura do hero. Logo quando a posição do mouse ultrapassar o valor do hero os itens devem voltar a serem exibidos
+            ocultaElementosDoHeader();
+        } else {
+            exibeElementosDoHeader();
+        }
+    })
+
+    // SEÇÃO DE ATRAÇÕES, PROGRAMAÇÃO ABAS
     for (let i = 0; i < buttons.length; i++) {  // função para adicionar o evento de clique nos botões e para acessá-lo                             | Função para adicionar um evento
         buttons[i].addEventListener('click', function(botao) { // função para acessar o código do botão ao clicar nele                              | Função para adicionar o evento de clique dentro dos botões
             const abaAlvo = botao.target.dataset.tabButton; // serve para acessar o código de data escrito dentro do HTML                           | Função para acessar a variavel data-tab-button dentro do HTML
@@ -12,7 +26,29 @@ document.addEventListener('DOMContentLoaded', function() {
             botao.target.classList.add('shows__tabs__button--is-active');  // adiciona dentro dos botões a classe shows__tabs__button--is-active
         })
     }
+
+    // SEÇÃO FAQ - ACCORDION
+    for (let i = 0; i < questions.length; i++) {
+        questions[i].addEventListener('click', abreOuFechaResposta);
+    }
 })
+
+function ocultaElementosDoHeader() {
+    const header = document.querySelector('header');
+    header.classList.add('header--is-hidden');
+}
+
+function exibeElementosDoHeader() {
+    const header = document.querySelector('header');
+    header.classList.remove('header--is-hidden');
+}
+
+function abreOuFechaResposta(elemento) { 
+    const classe = 'faq__questions__item--is-open';
+    const elementoPai = elemento.target.parentNode;
+
+    elementoPai.classList.toggle(classe);
+}
 
 function removeBotaoAtivo() {
     const buttons = document.querySelectorAll('[data-tab-button]');
